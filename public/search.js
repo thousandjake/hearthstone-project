@@ -13,7 +13,7 @@ Search.prototype.setup = function(){
 Search.prototype.doSearch = function(getQuery, loadCallBack){
   var xhr = new XMLHttpRequest();
   xhr.addEventListener('load', loadCallBack);
-  xhr.open('GET', 'api/search?searchTerm='+getQuery());
+  xhr.open('GET', '/api/search?searchTerm='+encodeURIComponent(getQuery()));
   xhr.send();
 };
 
