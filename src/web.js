@@ -1,7 +1,6 @@
 var https = require('https');
 var fs = require('fs');
 
-
 var secrets;
 
 fs.readFile(__dirname+'/../secrets.json',function(error,data){
@@ -28,29 +27,29 @@ app.get('/', function(req, res){
 
 app.get('/api/search/', function(req,res){
   var query = encodeURIComponent(req.query.searchTerm);
-  var req = https.request(
+  var reqAJAX = https.request(
     {
       hostname: secrets.cardAPI.url,
       path: '/cards/search/'+query,
       method: 'GET',
       headers: {'X-Mashape-Key':secrets.cardAPI.key}
     },
-    function(res){
+    function(resAJAX){
       var allData = '';
-      res.on('data', function(data) {
+      resAJAX.on('data', function(data) {
         allData += data;
       });
-      res.on('end', function(){
+      resAJAX.on('end', function(){
         console.log(JSON.parse(allData));
+        res.send(allData);
+        res.end();
       });
     }
   );
-
-  req.end();
-
-  req.on('error', function(error){
+  reqAJAX.on('error', function(error){
     console.error(error);
   });
+  reqAJAX.end()
 });
 
 var server = app.listen(process.env.PORT || 3000, function () {
