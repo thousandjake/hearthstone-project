@@ -27,10 +27,11 @@ app.get('/', function(req, res){
 
 app.get('/api/search/', function(req,res){
   var query = encodeURIComponent(req.query.searchTerm);
+  console.log(query);
   var reqAJAX = https.request(
     {
       hostname: secrets.cardAPI.url,
-      path: '/cards/search/'+query,
+      path: '/cards/search/'+query+'?collectible=1',
       method: 'GET',
       headers: {'X-Mashape-Key':secrets.cardAPI.key}
     },
