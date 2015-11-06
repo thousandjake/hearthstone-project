@@ -4,8 +4,21 @@
     <title>Hearthstone Project</title>
   </head>
   <body>
-    <input id="search">
-    <table id="searchResults"></table>
+    <div id="search-container">
+      <label>Enter Search Term: <input id="search" type="text" name="search"></label>
+      <label for="searchType">Search By:</label>
+      <select id="searchType" name="searchType">
+        <option value="search" selected>Card Name</option>
+        <option value="types">Card Type</option>
+        <option value="qualities">Card Quality</option>
+        <option value="races">Card Archetype</option>
+        <option value="classes">Hero Class</option>
+        <option value="sets">Card Set</option>
+      </select>
+    </div>
+    <div id="search-results-container">
+      <table id="searchResults"></table>
+    </div>
     <script src="search.js"></script>
     <script src="setup.js"></script>
   </body>

@@ -1,5 +1,6 @@
 var Search = function(){
   this.searchElement = document.getElementById('search');
+  this.searchType = document.getElementById('searchType');
   this.outputElement = document.getElementById('searchResults');
 };
 
@@ -8,6 +9,7 @@ Search.prototype.setup = function(){
     'change',
     this.doSearch.bind(
       this,
+      this._getQueryType.bind(this),
       this._getQuery.bind(this),
       this._handleDoSearch.bind(this),
       this._failDoSearch.bind(this)
@@ -15,11 +17,14 @@ Search.prototype.setup = function(){
   );
 };
 
-Search.prototype.doSearch = function(getQuery, loadCallBack, failCallBack){
+Search.prototype.doSearch = function(getQueryType, getQuery, loadCallBack, failCallBack){
   var xhr = new XMLHttpRequest();
   xhr.addEventListener('load', loadCallBack);
   xhr.addEventListener('error', failCallBack);
-  xhr.open('GET', '/api/search?searchTerm='+encodeURIComponent(getQuery()));
+  xhr.open('GET',
+    '/api/search?searchType='+encodeURIComponent(getQueryType())+
+    '&searchTerm='+encodeURIComponent(getQuery())
+    );
   xhr.send();
 };
 
@@ -39,6 +44,10 @@ Search.prototype._getQuery = function(){
   return this.searchElement.value;
 };
 
+Search.prototype._getQueryType = function(){
+  return this.searchType.value;
+};
+
 Search.prototype._renderer = function(data){
   //clears past search results
   var outputElement = this.outputElement;
@@ -46,12 +55,19 @@ Search.prototype._renderer = function(data){
     outputElement.removeChild(outputElement.firstChild);
   };
 
-  //create table elements for each card matching search
-  data.forEach(
-    function(currentValue, index, array){
-      this._createTableElement(currentValue);
-    },
-    this);
+  if(data !== 'undefined' && data.length > 0) {
+  //check to see if any results were returned
+    data.forEach(
+    //create table elements for each card matching search
+      function(currentValue, index, array){
+        this._createTableElement(currentValue);
+      },
+      this
+    );
+  } else {
+    alert('No Matching Results Found. Please Search Again');
+  };
+
 };
 
 Search.prototype._createTableElement = function(data){
