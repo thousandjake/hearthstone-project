@@ -1,0 +1,41 @@
+// === CLASS NOTES === //
+new class DECK
+<----properties---->
+deck-name
+card-list
+<----methods---->
+add-card(cardObj)
+remove-card(cardID)
+get-deck-name()
+save-deck()
+delete-deck()
+
+//Is this class necessary?
+new class CARD
+<----properties---->
+
+<----methods---->
+lightbox-card-data (triggered by view-button)
+
+// === LAYOUT NOTES === //
+button = new-deck
+button = load-deck
+---> generate deck-viewer element on right side of screen
+  div = input = deck-name / display deck name
+  div =
+    button = save-deck
+    button = delete-deck
+  div = card-viewerer
+    card = card-name + view-button + remove-button
+
+<-- add card method -->
+conditions that need to be met
+1) deckArray < 30 cards
+    - check deckArray.length
+2) playerClass === cardClass || cardClass === does not exist
+    - if(deckType === player || (! this.cardObj.playerClass)){
+3) If card is not legendary, no more than 2 per deck
+    - forEach loop to cycle through cards and look for a match (store # of matches in matchCount)
+    - if card === legenday && matchCount !== 0
+4) If card is legendary, no matches in deck
+    - if card !== legndary && matchCount < 1

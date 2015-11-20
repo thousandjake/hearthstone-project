@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+#main-container {
+  width: 100%;
+  height: 100vh;
+  margin: 2%;
+}
+
+#search-container {
+  float: left;
+  width: 70%;
+}
+
+#search-inputs-container {
+  border: 1px solid black;
+}
+
+#search-outputs-container {
+  border: 1px solid black;
+}
+
+#searchResults  div {
+  border: 1px solid black;
+  float: left;
+  width: 33%;
+}
+
+#searchResults img {
+  max-width: 80%;
+  position: relative;
+}
+
+#deck-container {
+  background-color: tomato;
+  float: left;
+  width: 28%;
+  height: 100%;
+  border: 1px solid black;
+}
+
+#deck-list li {
+  background-color: burlywood;
+  border: 1px solid black;
+}
