@@ -2,24 +2,60 @@
 <html>
   <head>
     <title>Hearthstone Project</title>
+    <link rel="stylesheet" href="//normalize-css.googlecode.com/svn/trunk/normalize.min.css" />
+    <link rel="stylesheet" href="styles/style.css">
+
   </head>
   <body>
-    <div id="search-container">
-      <label>Enter Search Term: <input id="search" type="text" name="search"></label>
-      <label for="searchType">Search By:</label>
-      <select id="searchType" name="searchType">
-        <option value="search" selected>Card Name</option>
-        <option value="types">Card Type</option>
-        <option value="qualities">Card Quality</option>
-        <option value="races">Card Archetype</option>
-        <option value="classes">Hero Class</option>
-        <option value="sets">Card Set</option>
-      </select>
+    <div id="main-container">
+
+      <div id="search-container">
+        <div id="search-inputs-container">
+          <label>Enter Search Term: <input id="search"
+            type="text" name="search"></label>
+          <label for="searchType">Search By:</label>
+          <select id="searchType" name="searchType">
+            <option value="search" selected>Card Name</option>
+            <option value="types">Card Type</option>
+            <option value="qualities">Card Quality</option>
+            <option value="races">Card Archetype</option>
+            <option value="classes">Hero Class</option>
+            <option value="sets">Card Set</option>
+          </select>
+          <button id="newDeckButton">Create New Deck</button>
+          <button id="openDeckButton">Open an Existing Deck</button>
+        </div>
+
+        <div id="search-outputs-container">
+          <div id="searchResults"></div>
+        </div>
+      </div>
+
+      <div id="deck-container">
+        <label>Deck Name: <input id="deckNameInput" type="text"
+            name="deckNameInput" value="New Deck"></label></br>
+        <label for="heroClass">Choose A Class:</label>
+        <select name="heroClass" id="heroClass">
+          <option value="druid">Druid</option>
+          <option value="hunter">Hunter</option>
+          <option value="mage">Mage</option>
+          <option value="paladin">Paladin</option>
+          <option value="priest">Priest</option>
+          <option value="rogue">Rogue</option>
+          <option value="shaman">Shaman</option>
+          <option value="warlock">Warlock</option>
+          <option value="warrior">Warrior</option>
+        </select>
+        <button id="saveDeckButton">Save Deck</button>
+        <button id="deleteDeckButton">Delete Deck</button></br>
+        <ul id="deck-list">
+        </ul>
+      </div>
+
     </div>
-    <div id="search-results-container">
-      <table id="searchResults"></table>
-    </div>
-    <script src="search.js"></script>
-    <script src="setup.js"></script>
+
+    <script src="/js/card.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/setup.js"></script>
   </body>
 </html>
