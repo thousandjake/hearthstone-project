@@ -37,38 +37,34 @@ Card.prototype.renderCard = function() {
 };
 
 Card.prototype._addCard = function() {
-  var cardName = this.cardObj.name;
+  var cardId = this.cardObj.cardId;
   var rarity = this.cardObj.rarity.toLowerCase();
-  var matchCount = 0;
+  var deckType = document.getElementById('heroClass').value;
 
-  if(this.deckArray.length > 0){
-    this.deckArray.forEach(function(currentValue, index, array){
-      if(cardName === currentValue.name){
-        matchCount++;
+  var matchCount = this.deckArray.reduce(function(count, currentValue){
+    return currentValue.cardId === cardId ? count+1 : count;
+  },0);
+
+  if(rarity === 'legendary' && matchCount >= 1) {
+    alert('Only once instance of a legendary per deck');
+  } else if(matchCount >= 2) {
+    alert('Only two instances of non-legendary cards per deck');
+  }
+  else {
+
+    if(this.deckArray.length < 30){
+      if(typeof(this.cardObj.playerClass) === 'undefined' ||
+      deckType === this.cardObj.playerClass.toLowerCase()) {
+        this.deckArray.push(this.cardObj);
+        this.renderDeck();
+      } else {
+        alert('Card not for your hero bro');
       }
-    },
-      this
-    );
+    }else{
+      alert('Decks can only contain 30 cards!');
+    };
   }
 };
-
-Card.prototype._cardMatchCounter = function(){
-  var deckType = document.getElementById('heroClass').value;
-  if(this.cardObj.playerClass) {
-    var player = this.cardObj.playerClass.toLowerCase();
-  };
-
-  if(this.deckArray.length < 31){
-    if(deckType === player || (! this.cardObj.playerClass)){
-      this.deckArray.push(this.cardObj);
-      this.renderDeck();
-    } else {
-      alert('Card not for your hero bro');
-    }
-  }else{
-    alert('Decks can only contain 30 cards!');
-  };
-}
 
 Card.prototype._removeCard = function(index){
   this.deckArray.splice(index,1);
