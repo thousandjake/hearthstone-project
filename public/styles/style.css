@@ -7,26 +7,19 @@
   margin: 2%;
 }
 
-#search-container {
+Search {
   float: left;
   width: 70%;
-}
-
-#search-inputs-container {
   border: 1px solid black;
 }
 
-#search-outputs-container {
-  border: 1px solid black;
-}
-
-#searchResults  div {
+Search div {
   border: 1px solid black;
   float: left;
   width: 33%;
 }
 
-#searchResults img {
+Search img {
   max-width: 80%;
   position: relative;
 }
