@@ -33,19 +33,33 @@ SearchView.prototype.render = function () {
           var searchTypeElement = currentSearchElement
             .getElementsByClassName('search-type')[0];
           searchTermElement.addEventListener(
-            'change',
-            that.search.doSearch.bind(
-              that.search,
-              function () {return searchTypeElement.value},
-              function () {return searchTermElement.value},
-              function (xhrResponse) {
-                if(xhrResponse.currentTarget.status === 200){
-                  console.log(JSON.parse(arguments[0].currentTarget.response));
-                }else {
-                  alert('You fucked up son');
-                }
-              },
-              function () {alert('IDK WHAT THE FUCK YOU DID')}
+            'keyup',
+            function debounce (func, wait) {
+              var timeout;
+              return function() {
+                var context = this, args = arguments;
+                var later = function() {
+                  timeout = null;
+                  func.apply(context, args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+              };
+            }(
+              that.search.doSearch.bind(
+                that.search,
+                function () {return searchTypeElement.value},
+                function () {return searchTermElement.value},
+                function (xhrResponse) {
+                  if(xhrResponse.currentTarget.status === 200){
+                    console.log(JSON.parse(arguments[0].currentTarget.response));
+                  }else {
+                    alert('You fucked up son');
+                  }
+                },
+                function () {alert('IDK WHAT THE FUCK YOU DID')}
+              ),
+              250
             )
           );
         });

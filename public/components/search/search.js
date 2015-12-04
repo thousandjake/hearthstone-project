@@ -3,14 +3,16 @@ var Search = function(){
 };
 
 Search.prototype.doSearch = function(getQueryType, getQuery, loadCallBack, failCallBack){
-  var xhr = new XMLHttpRequest();
-  xhr.addEventListener('load', loadCallBack);
-  xhr.addEventListener('error', failCallBack);
-  xhr.open('GET',
-    '/api/search?searchType='+encodeURIComponent(getQueryType())+
-    '&searchTerm='+encodeURIComponent(getQuery())
-    );
-  xhr.send();
+  if(getQuery()!==''){
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', loadCallBack);
+    xhr.addEventListener('error', failCallBack);
+    xhr.open('GET',
+      '/api/search?searchType='+encodeURIComponent(getQueryType())+
+      '&searchTerm='+encodeURIComponent(getQuery())
+      );
+    xhr.send();
+  }
 };
 
 Search.prototype._renderer = function(data){
