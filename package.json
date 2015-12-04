@@ -15,5 +15,8 @@
   "dependencies": {
     "express": "^4.13.3",
     "mongodb": "^2.0.47"
+  },
+  "devDependencies": {
+    "bower": "^1.6.8"
   }
 }

@@ -3,3 +3,4 @@ secrets.json
 .DS_Store
 npm_debug.log
 data
+bower_components

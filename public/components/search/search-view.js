@@ -1,9 +1,11 @@
-var SearchView = function(search) {
+var SearchView = function(search, tagName) {
   this.search = search;
+  this.tagName = tagName;
 };
 
 SearchView.prototype.render = function() {
   var searchTemplate = "";
+  var that = this;
   var templateReady = new Promise(
     function(resolve, reject){
       var xhr = new XMLHttpRequest();
@@ -14,13 +16,14 @@ SearchView.prototype.render = function() {
       xhr.addEventListener('error', function(){reject('fuckkk')});
       xhr.open('GET','/components/search/search.html');
       xhr.send();
-    });
-    templateReady.catch(function(message){
+    }).catch(function(message){
       console.log('promise caught');
-      document.alert(message);
-    });
-    templateReady.then(function(message){
-      console.log('promise then');
-      console.log(searchTemplate);
+      alert(message);
+    }).then(function(searchTemplate){
+      [].slice
+        .call(document.getElementsByTagName(that.tagName))
+        .forEach(function (currentSearchElement) {
+          currentSearchElement.innerHTML = Mustache.render(searchTemplate,{});
+        });
     });
 };

@@ -14,6 +14,7 @@ var express = require('express');
 var app = express();
 
 app.use(express.static('public'));
+app.use(express.static('bower_components'));
 
 app.get('/*', function(req, res, next){
   res.setHeader('Last-Modified', (new Date()).toUTCString());
@@ -21,7 +22,7 @@ app.get('/*', function(req, res, next){
 });
 
 app.get('/', function(req, res){
-  var path = __dirname+"/index.html";
+  var path = __dirname+'/index.html';
   res.sendFile(path);
 });
 

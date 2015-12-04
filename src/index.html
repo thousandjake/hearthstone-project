@@ -8,29 +8,7 @@
   </head>
   <body>
     <div id="main-container">
-
-      <div id="search-container">
-        <div id="search-inputs-container">
-          <label>Enter Search Term: <input id="search"
-            type="text" name="search"></label>
-          <label for="searchType">Search By:</label>
-          <select id="searchType" name="searchType">
-            <option value="search" selected>Card Name</option>
-            <option value="types">Card Type</option>
-            <option value="qualities">Card Quality</option>
-            <option value="races">Card Archetype</option>
-            <option value="classes">Hero Class</option>
-            <option value="sets">Card Set</option>
-          </select>
-          <button id="newDeckButton">Create New Deck</button>
-          <button id="openDeckButton">Open an Existing Deck</button>
-        </div>
-
-        <div id="search-outputs-container">
-          <div id="searchResults"></div>
-        </div>
-      </div>
-
+      <Search></Search>
       <div id="deck-container">
         <label>Deck Name: <input id="deckNameInput" type="text"
             name="deckNameInput" value="New Deck"></label></br>
@@ -54,6 +32,7 @@
 
     </div>
 
+    <script src="/mustache.js/mustache.js"></script>
     <script src="/components/app.js"></script>
     <script src="/components/card/card.js"></script>
     <script src="/components/deck/deck.js"></script>

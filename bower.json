@@ -1,0 +1,25 @@
+{
+  "name": "hearthstone-project",
+  "description": "A hearthstone project",
+  "main": "src/web.js",
+  "authors": [
+    "jake thousand"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "hearthstone",
+    "project"
+  ],
+  "homepage": "https://github.com/thousandjake/hearthstone-project",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mustache.js": "mustache#~2.2.0"
+  }
+}

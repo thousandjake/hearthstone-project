@@ -1,7 +1,7 @@
 var App = function() {
   this.search = new Search();
   this.deck = new Deck();
-  this.searchView = new SearchView(this.search);
+  this.searchView = new SearchView(this.search, 'Search');
   this.deckView = new DeckView(this.deck);
 
   document.addEventListener('DOMContentLoaded',function(){
