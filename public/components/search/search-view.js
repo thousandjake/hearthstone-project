@@ -21,7 +21,6 @@ SearchView.prototype.render = function () {
       } else {
         resolve(that.searchTemplate);
       }
-
     }).catch(function (message) {
       alert(message);
     }).then(function (searchTemplate) {
@@ -29,6 +28,26 @@ SearchView.prototype.render = function () {
         .call(document.getElementsByTagName(that.tagName))
         .forEach(function (currentSearchElement) {
           currentSearchElement.innerHTML = Mustache.render(searchTemplate,{});
+          var searchTermElement = currentSearchElement
+            .getElementsByClassName('search-term')[0];
+          var searchTypeElement = currentSearchElement
+            .getElementsByClassName('search-type')[0];
+          searchTermElement.addEventListener(
+            'change',
+            that.search.doSearch.bind(
+              that.search,
+              function () {return searchTypeElement.value},
+              function () {return searchTermElement.value},
+              function (xhrResponse) {
+                if(xhrResponse.currentTarget.status === 200){
+                  console.log(JSON.parse(arguments[0].currentTarget.response));
+                }else {
+                  alert('You fucked up son');
+                }
+              },
+              function () {alert('IDK WHAT THE FUCK YOU DID')}
+            )
+          );
         });
     });
 };
