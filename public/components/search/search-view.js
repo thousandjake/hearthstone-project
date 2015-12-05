@@ -15,17 +15,17 @@ SearchView.prototype.render = function () {
           resolve(response.currentTarget.response);
           that.searchTemplate = response.currentTarget.response;
         });
-        xhr.addEventListener('error', function () {reject('fuckkk')});
+        xhr.addEventListener('error', function () {reject()});
         xhr.open('GET','/components/search/search.html');
         xhr.send();
       } else {
-        resolve(that.searchTemplate);
+        resolve(that.searchTemplate); //Why are we passing in searchTemplate?  It is a property
       }
-    }).catch(function (message) {
-      alert(message);
+    }).catch(function () {
+      console.log('failed to get search template from server');
     }).then(function (searchTemplate) {
-      [].slice
-        .call(document.getElementsByTagName(that.tagName))
+      [].slice.call(document.getElementsByTagName(that.tagName))
+      //cast HTML collection returned by response to an array
         .forEach(function (currentSearchElement) {
           currentSearchElement.innerHTML = Mustache.render(searchTemplate,{});
           var searchTermElement = currentSearchElement
@@ -34,30 +34,11 @@ SearchView.prototype.render = function () {
             .getElementsByClassName('search-type')[0];
           searchTermElement.addEventListener(
             'keyup',
-            function debounce (func, wait) {
-              var timeout;
-              return function() {
-                var context = this, args = arguments;
-                var later = function() {
-                  timeout = null;
-                  func.apply(context, args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-              };
-            }(
+            that.debounce(
               that.search.doSearch.bind(
                 that.search,
-                function () {return searchTypeElement.value},
-                function () {return searchTermElement.value},
-                function (xhrResponse) {
-                  if(xhrResponse.currentTarget.status === 200){
-                    console.log(JSON.parse(arguments[0].currentTarget.response));
-                  }else {
-                    alert('You fucked up son');
-                  }
-                },
-                function () {alert('IDK WHAT THE FUCK YOU DID')}
+                searchTermElement,
+                searchTypeElement
               ),
               250
             )
@@ -65,3 +46,16 @@ SearchView.prototype.render = function () {
         });
     });
 };
+
+SearchView.prototype.debounce = function (func, wait) {
+  var timeout;
+  return function () {
+    var context = this, args = arguments;
+    var later = function () {
+      timeout = null;
+      func.apply(context, args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
