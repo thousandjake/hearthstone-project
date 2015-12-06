@@ -24,7 +24,7 @@ Search img {
   position: relative;
 }
 
-#deck-container {
+Deck {
   background-color: tomato;
   float: left;
   width: 28%;
@@ -32,7 +32,7 @@ Search img {
   border: 1px solid black;
 }
 
-#deck-list li {
+Deck li {
   background-color: burlywood;
   border: 1px solid black;
 }

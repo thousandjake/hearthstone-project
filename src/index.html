@@ -9,27 +9,7 @@
   <body>
     <div id="main-container">
       <Search></Search>
-      <div id="deck-container">
-        <label>Deck Name: <input id="deckNameInput" type="text"
-            name="deckNameInput" value="New Deck"></label></br>
-        <label for="heroClass">Choose A Class:</label>
-        <select name="heroClass" id="heroClass">
-          <option value="druid">Druid</option>
-          <option value="hunter">Hunter</option>
-          <option value="mage">Mage</option>
-          <option value="paladin">Paladin</option>
-          <option value="priest">Priest</option>
-          <option value="rogue">Rogue</option>
-          <option value="shaman">Shaman</option>
-          <option value="warlock">Warlock</option>
-          <option value="warrior">Warrior</option>
-        </select>
-        <button id="saveDeckButton">Save Deck</button>
-        <button id="deleteDeckButton">Delete Deck</button></br>
-        <ul id="deck-list">
-        </ul>
-      </div>
-
+      <Deck></Deck>
     </div>
 
     <script src="/mustache.js/mustache.js"></script>
