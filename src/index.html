@@ -9,16 +9,20 @@
   <body>
     <div id="main-container">
       <Search></Search>
+      <Results></Results>
       <Deck></Deck>
     </div>
 
     <script src="/mustache.js/mustache.js"></script>
+    <script src="/components/app-dispatcher.js"></script>
+    <script src="/components/app-template-cache.js"></script>
     <script src="/components/app.js"></script>
     <script src="/components/card/card.js"></script>
-    <script src="/components/deck/deck.js"></script>
+    <script src="/components/card/card-view.js"></script>
     <script src="/components/deck/deck-view.js"></script>
-    <script src="/components/search/search.js"></script>
+    <script src="/components/search/search-api.js"></script>
     <script src="/components/search/search-view.js"></script>
+    <script src="/components/search/search-results-view.js"></script>
     <script>var application = new App();</script>
   </body>
 </html>

@@ -1,37 +1,17 @@
-var DeckView = function(deck, tagName) {
-  this.deck = deck;
-  this.tagName = tagName;
-  this.deckTemplate = '';
-};
-
-DeckView.prototype.render = function() {
-  var that = this;
-
-  var templateReady = new Promise(
-    function (resolve, reject) {
-      if (that.deckTemplate.length === 0) {
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener('load', function (response) {
-          resolve(response.currentTarget.response);
-          that.deckTemplate = response.currentTarget.response;
-        });
-        xhr.addEventListener('error', function () {reject()});
-        xhr.open('GET','/components/deck/deck.html');
-        xhr.send();
-      } else {
-        resolve(that.deckTemplate);
-      }
-    }).catch(function () {
-      console.log('failed to get deck template from server');
+var DeckView = {
+  render : function () {
+    var that = this;
+    AppTemplateCache.getTemplate('Deck', '/components/deck/deck.html')
+    .catch(function () {
+      console.error('failed to get template from server');
     }).then(function (deckTemplate) {
-      [].slice.call(document.getElementsByTagName(that.tagName))
+      [].slice.call(document.getElementsByTagName('Deck'))
       //cast HTML collection returned by response to an array
-        .forEach(function (currentDeckElement) {
-          currentDeckElement.innerHTML = Mustache.render(deckTemplate,{});
+        .forEach(function (currentSearchElement) {
+          currentSearchElement.innerHTML = Mustache.render(deckTemplate,{});
         });
     });
+  }
 };
 
-DeckView.prototype.removeFromDeck = function() {
-
-};
+AppDispatcher.register('dom-load', DeckView.render);
