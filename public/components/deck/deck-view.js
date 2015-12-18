@@ -40,11 +40,11 @@ var DeckView = {
     }
   },
   renderDeck : function () {
-    DeckView._sortArray.bind();
     var deckUL = document.getElementsByClassName('deck-list')[0];
     deckUL.innerHTML = "";
 
     if(DeckView.deckArray.length > 0){
+      DeckView._sortArray();
       DeckView.deckArray.forEach(function(currentValue,index,array){
         var deckItem = document.createElement('li');
         deckItem.innerHTML = currentValue.cost + ' ' + currentValue.name;
@@ -57,7 +57,6 @@ var DeckView = {
           'click',
           DeckView.removeCard.bind(index)
         );
-
         deckUL.appendChild(deckItem);
         }
         ,{});
@@ -73,8 +72,14 @@ var DeckView = {
       else if(a.cost > b.cost) {
         return 1;
       }
+      else if(nameA > nameB){
+        return 1;
+      }
       else if(nameA < nameB){
         return -1;
+      }
+      else if(nameA === nameB){
+        return 1;
       }
       else {
         console.error('Sort Failed????');
