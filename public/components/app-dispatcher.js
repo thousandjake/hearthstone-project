@@ -14,7 +14,6 @@ var AppDispatcher = {
     }
   },
   dispatch : function (eventName, args) {
-    debugger;
     var that = this, eventFound = 'false';
     for(var key in AppDispatcher.listeners) {
       if(eventName === key) {

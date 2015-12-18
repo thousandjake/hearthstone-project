@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 #main-container {
   width: 100%;
   height: 100vh;
@@ -42,4 +43,30 @@ Deck {
 Deck li {
   background-color: burlywood;
   border: 1px solid black;
+}
+
+Overlay {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0,0,0,0.5);
+}
+
+EnlargedCard {
+  background-color: chartreuse;
+  margin: 25%;
+  width: 50%;
+  height: 50%;
+}
+
+EnlargedCard img {
+  float:left;
+  width: 50%;
+  height: 50%;
+}
+
+EnlargedCard div {
+  float: left;
+  width: 50%;
+  height: 50%;
 }

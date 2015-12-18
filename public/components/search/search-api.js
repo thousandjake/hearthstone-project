@@ -1,6 +1,5 @@
 var SearchAPI = {
   doSearch : function (args) {
-    debugger;
     var dataReady = new Promise(
       function (resolve, reject) {
         if(args.term !== '') {

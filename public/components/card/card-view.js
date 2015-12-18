@@ -14,8 +14,37 @@ var CardView = {
         CardImage : cardData.img,
         CardName : cardData.name
       });
+      addButton = newCard.getElementsByTagName('button')[0];
+      addButton.addEventListener('click', function () {
+        AppDispatcher.dispatch('add-card', cardData);
+      });
+      viewButton = newCard.getElementsByTagName('button')[1];
+      viewButton.addEventListener('click', function () {
+        AppDispatcher.dispatch('view-card', cardData);
+      });
+    });
+  },
+  enlarge : function (cardData) {
+    var overlay = document.createElement('Overlay');
+    document.body.appendChild(overlay);
+
+    AppTemplateCache.getTemplate('Enlarged-Card', '/components/card/enlarged-card.html')
+    .catch(function () {
+      console.error('failed to get template from server');
+    }).then(function (enlargedCardTemplate) {
+      overlay.innerHTML = Mustache.render(enlargedCardTemplate, {
+        CardImage : cardData.img,
+        CardName : cardData.name,
+        CardSet : cardData.cardSet,
+        CardFlavor : cardData.flavor,
+        CardArtist : cardData.artist
+      });
+      overlay.addEventListener('click', function () {
+        document.body.removeChild(overlay);
+      })
     });
   }
 }
 
-AppDispatcher.register('render-card', CardView.render)
+AppDispatcher.register('render-card', CardView.render);
+AppDispatcher.register('view-card', CardView.enlarge);

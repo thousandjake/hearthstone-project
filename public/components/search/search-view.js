@@ -1,6 +1,5 @@
 var SearchView = {
   debounce : function (func, wait) {
-    debugger;
     var timeout;
     return function () {
       var context = this, args = arguments;

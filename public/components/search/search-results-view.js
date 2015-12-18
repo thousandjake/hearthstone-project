@@ -1,8 +1,9 @@
 var SearchResultsView = {
   destroy : function () {
-    
+
   },
   render : function (args) {
+    document.getElementsByTagName('Results')[0].innerHTML = "";
     args.dataArray.forEach(function (currentValue) {
       AppDispatcher.dispatch('render-card', currentValue);
     })
