@@ -55,7 +55,7 @@ var DeckView = {
 
         removeItemButton.addEventListener(
           'click',
-          DeckView.removeCard.bind(index)
+          DeckView.removeCard.bind({},index)
         );
         deckUL.appendChild(deckItem);
         }
@@ -87,6 +87,7 @@ var DeckView = {
     });
   },
   removeCard : function (index) {
+    debugger;
     DeckView.deckArray.splice(index,1);
     DeckView.renderDeck();
   }
