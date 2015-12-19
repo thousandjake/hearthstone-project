@@ -2,17 +2,17 @@ var SearchView = {
   debounce : function (func, wait) {
     var timeout;
     return function () {
-      var context = this, args = arguments;
+      var that = this, args = arguments;
       var later = function () {
         timeout = null;
-        func.apply(context, args);
+        func.apply(that, args);
       }
       clearTimeout(timeout);
       timeout = setTimeout(later, wait);
     }
   },
   render : function () {
-    var that = this;
+    that = this;
     AppTemplateCache.getTemplate('Search', '/components/search/search.html')
     .catch(function () {
       console.error('failed to get template from server');
@@ -24,8 +24,8 @@ var SearchView = {
         });
         document.getElementsByClassName('search-term')[0].addEventListener(
           'keyup',
-          SearchView.debounce(SearchView.change.bind(), 400)
-          )
+          that.debounce(that.change.bind(), 400)
+        );
     });
   },
   change : function () {
@@ -38,4 +38,4 @@ var SearchView = {
   }
 };
 
-AppDispatcher.register('dom-load', SearchView.render);
+AppDispatcher.register('dom-load', SearchView.render.bind(SearchView));

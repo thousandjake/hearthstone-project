@@ -4,7 +4,7 @@
 
 #main-container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   margin: 1%;
 }
 
@@ -48,25 +48,28 @@ Deck li {
 Overlay {
   width: 100%;
   height: 100%;
-  z-index: 1;
+  position: absolute;
+  top : 0;
+  left : 0;
+  z-index: 1000;
   background-color: rgba(0,0,0,0.5);
 }
 
 EnlargedCard {
-  background-color: chartreuse;
-  margin: 25%;
+  background: chartreuse;
+  top : 10%;
+  left: 10%;
+  position: absolute;
   width: 50%;
   height: 50%;
+  z-index: 1001;
 }
 
 EnlargedCard img {
   float:left;
-  width: 50%;
-  height: 50%;
+  max-height: 100%;
 }
 
-EnlargedCard div {
+EnlargedCard span {
   float: left;
-  width: 50%;
-  height: 50%;
 }

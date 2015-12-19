@@ -3,9 +3,8 @@ var CardView = {
     var newCard = document.createElement('Card');
     Object.keys(cardData).forEach(function(currentValue) {
       newCard.setAttribute(currentValue, cardData[currentValue]);
-    })
+    });
     document.getElementsByTagName('Results')[0].appendChild(newCard);
-
     AppTemplateCache.getTemplate('Card', '/components/card/card.html')
     .catch(function () {
       console.error('failed to get template from server');
@@ -27,7 +26,6 @@ var CardView = {
   enlarge : function (cardData) {
     var overlay = document.createElement('Overlay');
     document.body.appendChild(overlay);
-
     AppTemplateCache.getTemplate('Enlarged-Card', '/components/card/enlarged-card.html')
     .catch(function () {
       console.error('failed to get template from server');
@@ -41,10 +39,10 @@ var CardView = {
       });
       overlay.addEventListener('click', function () {
         document.body.removeChild(overlay);
-      })
+      });
     });
   }
-}
+};
 
-AppDispatcher.register('render-card', CardView.render);
-AppDispatcher.register('view-card', CardView.enlarge);
+AppDispatcher.register('render-card', CardView.render.bind(CardView));
+AppDispatcher.register('view-card', CardView.enlarge.bind(CardView));

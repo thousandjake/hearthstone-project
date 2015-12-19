@@ -1,51 +1,36 @@
 var AppDispatcher = {
   listeners : {},
   register : function (eventName, callback) {
-    var eventFound = 'false';
-    for(var key in AppDispatcher.listeners) {
+    var that = this, eventFound = 'false';
+    for(var key in that.listeners) {
       if(eventName === key) {
         eventFound = 'true';
       };
     };
     if(eventFound === 'true') {
-      AppDispatcher.listeners[eventName].push(callback);
+      that.listeners[eventName].push(callback);
     } else {
-      AppDispatcher.listeners[eventName] = [callback];
-    }
+      that.listeners[eventName] = [callback];
+    };
   },
   dispatch : function (eventName, args) {
     var that = this, eventFound = 'false';
-    for(var key in AppDispatcher.listeners) {
+    for(var key in that.listeners) {
       if(eventName === key) {
         eventFound = 'true';
       };
     };
     if(eventFound === 'true'){
-      AppDispatcher.listeners[eventName].forEach(function (currentValue) {
+      that.listeners[eventName].forEach(function (currentValue) {
         currentValue(args);
-      }, that)
+      }, that);
     } else {
-      console.error('event undefined');
-    }
+      console.error('Event undefined.  Event: '
+        + eventName
+        + ' with Arguments: '
+        + args
+        + ' is not a registered event'
+      );
+    };
   }
-}
-
-//list of expected events
-//*****COMPLETE*****
-//dom-load : searchView.render(), deckView.render()
-  //on dom-load render the search and deck views
-//*****COMPLETE*****
-//need-data : searchAPI.doSearch()
-  //on change of search input, run the API call
-//*****COMPLETE*****
-//have-data : searchResultsView.destroy(), searchResultsView.render()
-  //
-
-//render-card : cardView.render()
-  //render card template into element
-
-//add-card : deckView.addCard()
-  //add deck to card, also contains rule logic (2 max copies)
-
-//view-card : cardView.enlarge()
-  //lightbox effect of CARD
+};

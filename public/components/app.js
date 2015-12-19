@@ -1,5 +1,5 @@
-var App = function() {
-  document.addEventListener('DOMContentLoaded',function(){
+var App = function () {
+  document.addEventListener('DOMContentLoaded',function () {
     //dispatch the dom-load event
     AppDispatcher.dispatch('dom-load', {});
   });
