@@ -16,8 +16,12 @@ var SearchAPI = {
         console.error('AJAX call to API failed');
       }).then(function (xhrResponse) {
           if(xhrResponse.currentTarget.status === 200){
-             var cardDataArray = JSON.parse(arguments[0].currentTarget.response);
-             AppDispatcher.dispatch('have-data', {dataArray : cardDataArray});
+            var cardDataArray = JSON.parse(arguments[0].currentTarget.response);
+            if (Array.isArray(cardDataArray)) {
+              AppDispatcher.dispatch('have-data', {dataArray : cardDataArray});
+            } else {
+              alert('No results found! Please try again!');
+            };
           }else {
             console.error('API Response status !== 200')
           }

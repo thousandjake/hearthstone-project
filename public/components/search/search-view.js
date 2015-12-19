@@ -24,15 +24,17 @@ var SearchView = {
         });
         document.getElementsByClassName('search-term')[0].addEventListener(
           'keyup',
-          SearchView.debounce(SearchView.change.bind(), 250)
+          SearchView.debounce(SearchView.change.bind(), 400)
           )
     });
   },
   change : function () {
-    AppDispatcher.dispatch(
-      'need-data',
-      {searchTerm : document.getElementsByClassName('search-term')[0].value,
-        searchType: document.getElementsByClassName('search-type')[0].value})
+    if(document.getElementsByClassName('search-term')[0].value !== '') {
+      AppDispatcher.dispatch(
+        'need-data',
+        {searchTerm : document.getElementsByClassName('search-term')[0].value,
+          searchType: document.getElementsByClassName('search-type')[0].value});
+    };
   }
 };
 

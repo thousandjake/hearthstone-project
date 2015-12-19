@@ -87,7 +87,6 @@ var DeckView = {
     });
   },
   removeCard : function (index) {
-    debugger;
     DeckView.deckArray.splice(index,1);
     DeckView.renderDeck();
   }
