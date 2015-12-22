@@ -25,7 +25,7 @@ var CardView = {
   },
   enlarge : function (cardData) {
     var overlay = document.createElement('Overlay');
-    document.body.appendChild(overlay);
+    document.getElementById('main-container').appendChild(overlay);
     AppTemplateCache.getTemplate('Enlarged-Card', '/components/card/enlarged-card.html')
     .catch(function () {
       console.error('failed to get template from server');
@@ -38,7 +38,7 @@ var CardView = {
         CardArtist : cardData.artist
       });
       overlay.addEventListener('click', function () {
-        document.body.removeChild(overlay);
+        document.getElementById('main-container').removeChild(overlay);
       });
     });
   }

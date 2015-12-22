@@ -47,6 +47,7 @@ var DeckView = {
         var deckItem = document.createElement('li');
         deckItem.innerHTML = currentValue.cost + ' ' + currentValue.name;
         var removeItemButton = document.createElement('button');
+        removeItemButton.className = 'remove';
         removeItemButton.innerHTML = 'Remove Item';
         deckItem.appendChild(removeItemButton);
         removeItemButton.addEventListener(

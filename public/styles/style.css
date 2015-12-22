@@ -1,75 +1,174 @@
+/**************************************
+Global Rules
+**************************************/
 * {
   box-sizing: border-box;
 }
 
+/**************************************
+Container Styles
+**************************************/
+
 #main-container {
+  display: inline-block;
+  margin: 0px auto;
   width: 100%;
   height: 100%;
-  margin: 1%;
+  position:relative;
 }
 
-Search,
-Results {
-  float: left;
-  border: 1px solid black;
-}
-
-Search {
-  width: 100%
-}
-
-Results {
-  width: 70%
-}
-
-Card {
-  float: left;
-  width: 33.33%;
-}
-
-Card img {
-  max-width: 80%;
+#deck-container {
+  display: inline-block;
+  float: right;
+  width: 50%;
+  height: 100%;
   position: relative;
 }
 
-Deck {
-  background-color: tomato;
+#search-container {
+  display: inline-block;
   float: left;
-  width: 30%;
+  width: 50%;
   height: 100%;
-  border: 1px solid black;
 }
 
-Deck li {
-  background-color: burlywood;
-  border: 1px solid black;
+/**************************************
+Basic Element Styles
+**************************************/
+
+Deck {
+  display: block;
+  margin: 0px auto;
+  padding: 10px 10px;
+  width: 100%;
+  max-width:100%;
+  height: 100vh;
+  font-size: 16px;
+  position:fixed;
+  background-color: silver;
+  float:left;
+}
+
+Search {
+  display: block;
+  float: left;
+  margin: 0px 0px;
+  padding: 10px 10px;
+  width: 100%;
+  height: 10%;
+  font-size: 16px;
+}
+
+Results {
+  display: block;
+  float: left;
+  margin: 0px 0px;
+  padding: 1px 1px;
+  width: 100%;
+  height: 90%;
+}
+
+Deck li{
+  width: 100%;
+  max-width:100%;
+  font-size: 16px;
+  text-align: left;
+  list-style: none;
+  float: left;
+}
+
+Card {
+  display: inline-block;
+  float: left;
+  margin: 0px auto;
+  padding: 1px 1px;
+  width: 100%;
+  max-width: 100%;
+}
+
+Card img {
+  display: inline-block;
+  margin: 0px auto;
+  padding: 1px 1px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.add {
+  display: block;
+  height: 50px;
+  width: 100%;
+  margin: 0px auto;
+  padding: 1px 1px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.view {
+  display: block;
+  height: 50px;
+  width: 100%;
+  margin: 0px auto;
+  padding: 1px 1px;
+  font-size: 16px;
+  text-align: center;
 }
 
 Overlay {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top : 0;
-  left : 0;
   z-index: 1000;
-  background-color: rgba(0,0,0,0.5);
+  display: block;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0,0,0,.6);
+  margin: 0px 0px;
+  position: fixed;
+  float: left;
 }
 
 EnlargedCard {
-  background: chartreuse;
-  top : 10%;
-  left: 10%;
-  position: absolute;
-  width: 50%;
-  height: 50%;
   z-index: 1001;
+  display: inline-block;
+  width: 80vw;
+  height: 80vh;
+  margin: 0px auto;
+  padding: 20px 20px;
 }
 
 EnlargedCard img {
-  float:left;
-  max-height: 100%;
+  display: inline-block;
+  float: left;
+  width: 50%;
+  max-width: 300px;
+  height: auto;
+  margin: 0px 0px;
+  padding: 10px 10px;
 }
 
-EnlargedCard span {
-  float: left;
+EnlargedCard div {
+  display: inline-block;
+  background-color: ghostwhite;
+  float:left;
+  width: 50%;
+  height: 50%;
+  margin: auto;
+  padding: 10px 10px;
+  font-size: 16px;
+}
+
+/**************************************
+Media Queries
+**************************************/
+
+@media (min-width: 800px) {
+  #deck-container {
+    width: 30%;
+  }
+
+  #search-container {
+    width: 70%;
+  }
+
+  Card {
+    width: 33.3333%;
+  }
 }
