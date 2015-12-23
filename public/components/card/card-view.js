@@ -5,7 +5,7 @@ var CardView = {
       newCard.setAttribute(currentValue, cardData[currentValue]);
     });
     document.getElementsByTagName('Results')[0].appendChild(newCard);
-    AppTemplateCache.getTemplate('Card', '/components/card/card.html')
+    AppTemplateCache.getTemplate('/components/card/card.html')
     .catch(function () {
       console.error('failed to get template from server');
     }).then(function (cardTemplate) {
@@ -26,7 +26,7 @@ var CardView = {
   enlarge : function (cardData) {
     var overlay = document.createElement('Overlay');
     document.getElementById('main-container').appendChild(overlay);
-    AppTemplateCache.getTemplate('Enlarged-Card', '/components/card/enlarged-card.html')
+    AppTemplateCache.getTemplate('/components/card/enlarged-card.html')
     .catch(function () {
       console.error('failed to get template from server');
     }).then(function (enlargedCardTemplate) {

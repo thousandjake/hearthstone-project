@@ -1,7 +1,7 @@
 var DeckView = {
   deckArray : [],
   render : function () {
-    AppTemplateCache.getTemplate('Deck', '/components/deck/deck.html')
+    AppTemplateCache.getTemplate('/components/deck/deck.html')
     .catch(function () {
       console.error('failed to get template from server');
     }).then(function (deckTemplate) {

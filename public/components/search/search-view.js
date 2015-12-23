@@ -13,7 +13,7 @@ var SearchView = {
   },
   render : function () {
     that = this;
-    AppTemplateCache.getTemplate('Search', '/components/search/search.html')
+    AppTemplateCache.getTemplate('/components/search/search.html')
     .catch(function () {
       console.error('failed to get template from server');
     }).then(function (searchTemplate) {
