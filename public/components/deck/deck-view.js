@@ -16,19 +16,14 @@ var DeckView = {
       alert('Only once instance of a legendary per deck');
     } else if(matchCount >= 2) {
       alert('Only two instances of non-legendary cards per deck');
-    }
-    else {
-      if(DeckView.deckArray.length < 30) {
-        if(typeof(cardObj.playerClass) === 'undefined' ||
-          deckType === cardObj.playerClass.toLowerCase()) {
-            DeckView.deckArray.push(cardObj);
-            DeckView.renderDeck();
-        } else {
-          alert('Card not for your hero bro');
-        };
-      }else{
-        alert('Decks can only contain 30 cards!');
-      };
+    } else if(DeckView.deckArray.length >= 30){
+      alert('Decks can only contain 30 cards!');
+    } else if(cardObj.hasOwnProperty('playerClass') &&
+        deckType !== cardObj.playerClass.toLowerCase()) {
+      alert('Card not for your hero bro');
+    } else {
+      DeckView.deckArray.push(cardObj);
+      DeckView.renderDeck();
     }
   },
   renderDeck : function () {
