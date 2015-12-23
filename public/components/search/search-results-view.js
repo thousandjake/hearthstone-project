@@ -1,6 +1,6 @@
 var SearchResultsView = {
   destroy : function () {
-    document.getElementsByTagName('Results')[0].innerHTML = "";
+    document.getElementsByTagName('Results')[0].innerHTML = '';
   },
   render : function (args) {
     args.dataArray.forEach(function (currentValue) {
