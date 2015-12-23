@@ -28,23 +28,24 @@ var DeckView = {
   },
   renderDeck : function () {
     var deckUL = document.getElementsByClassName('deck-list')[0];
-    deckUL.innerHTML = "";
+    deckUL.innerHTML = '';
     if(DeckView.deckArray.length > 0){
       DeckView._sortArray();
       DeckView.deckArray.forEach(function(currentValue,index,array){
         var deckItem = document.createElement('li');
         deckItem.innerHTML = currentValue.cost + ' ' + currentValue.name;
+
         var removeItemButton = document.createElement('button');
         removeItemButton.className = 'remove';
         removeItemButton.innerHTML = 'Remove Item';
-        deckItem.appendChild(removeItemButton);
         removeItemButton.addEventListener(
           'click',
           DeckView.removeCard.bind(DeckView,index)
         );
+        deckItem.appendChild(removeItemButton);
+
         deckUL.appendChild(deckItem);
-        }
-        ,{});
+      });
     };
   },
   _sortArray : function () {
@@ -53,20 +54,15 @@ var DeckView = {
       var nameB = b.name.toLowerCase();
       if(a.cost < b.cost) {
         return -1;
-      }
-      else if(a.cost > b.cost) {
+      } else if(a.cost > b.cost) {
         return 1;
-      }
-      else if(nameA > nameB){
+      } else if(nameA > nameB){
         return 1;
-      }
-      else if(nameA < nameB){
+      } else if(nameA < nameB){
         return -1;
-      }
-      else if(nameA === nameB){
+      } else if(nameA === nameB){
         return 1;
-      }
-      else {
+      } else {
         console.error('Sort Failed????');
       };
     });
