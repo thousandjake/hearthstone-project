@@ -36,6 +36,10 @@ Container Styles
 Basic Element Styles
 **************************************/
 
+body {
+  margin: 0;
+}
+
 Deck {
   display: block;
   margin: 0px auto;
