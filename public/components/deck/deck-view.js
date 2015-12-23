@@ -8,9 +8,8 @@ var DeckView = {
       });
   },
   addCard : function (cardObj) {
-    var that = this;
     var deckType = document.getElementsByClassName('hero-type')[0].value;
-    var matchCount = that.deckArray.reduce(function(count, currentValue){
+    var matchCount = DeckView.deckArray.reduce(function(count, currentValue){
       return currentValue.cardId === cardObj.cardId ? count+1 : count;
     },0);
     if(cardObj.rarity.toLowerCase() === 'legendary' && matchCount >= 1) {
@@ -19,11 +18,11 @@ var DeckView = {
       alert('Only two instances of non-legendary cards per deck');
     }
     else {
-      if(that.deckArray.length < 30) {
+      if(DeckView.deckArray.length < 30) {
         if(typeof(cardObj.playerClass) === 'undefined' ||
           deckType === cardObj.playerClass.toLowerCase()) {
-            that.deckArray.push(cardObj);
-            that.renderDeck();
+            DeckView.deckArray.push(cardObj);
+            DeckView.renderDeck();
         } else {
           alert('Card not for your hero bro');
         };
@@ -33,12 +32,11 @@ var DeckView = {
     }
   },
   renderDeck : function () {
-    var that = this;
     var deckUL = document.getElementsByClassName('deck-list')[0];
     deckUL.innerHTML = "";
-    if(that.deckArray.length > 0){
-      that._sortArray();
-      that.deckArray.forEach(function(currentValue,index,array){
+    if(DeckView.deckArray.length > 0){
+      DeckView._sortArray();
+      DeckView.deckArray.forEach(function(currentValue,index,array){
         var deckItem = document.createElement('li');
         deckItem.innerHTML = currentValue.cost + ' ' + currentValue.name;
         var removeItemButton = document.createElement('button');
@@ -47,7 +45,7 @@ var DeckView = {
         deckItem.appendChild(removeItemButton);
         removeItemButton.addEventListener(
           'click',
-          that.removeCard.bind(DeckView,index)
+          DeckView.removeCard.bind(DeckView,index)
         );
         deckUL.appendChild(deckItem);
         }
@@ -55,8 +53,7 @@ var DeckView = {
     };
   },
   _sortArray : function () {
-    var that = this;
-    that.deckArray.sort(function(a, b){
+    DeckView.deckArray.sort(function(a, b){
       var nameA = a.name.toLowerCase();
       var nameB = b.name.toLowerCase();
       if(a.cost < b.cost) {
@@ -80,9 +77,8 @@ var DeckView = {
     });
   },
   removeCard : function (index) {
-    that = this;
-    that.deckArray.splice(index,1);
-    that.renderDeck();
+    DeckView.deckArray.splice(index,1);
+    DeckView.renderDeck();
   }
 };
 
