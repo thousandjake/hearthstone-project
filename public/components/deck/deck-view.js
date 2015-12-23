@@ -2,13 +2,10 @@ var DeckView = {
   deckArray : [],
   render : function () {
     AppTemplateCache.getTemplate('/components/deck/deck.html')
-    .then(function (deckTemplate) {
-      [].slice.call(document.getElementsByTagName('Deck'))
-      //cast HTML collection returned by response to an array
-        .forEach(function (currentSearchElement) {
-          currentSearchElement.innerHTML = Mustache.render(deckTemplate,{});
-        });
-    });
+      .then(function (deckTemplate) {
+        document.getElementsByTagName('Deck')[0]
+          .innerHTML = Mustache.render(deckTemplate);
+      });
   },
   addCard : function (cardObj) {
     var that = this;
@@ -89,5 +86,5 @@ var DeckView = {
   }
 };
 
-AppDispatcher.register('dom-load', DeckView.render.bind(DeckView));
+AppDispatcher.register('dom-load', DeckView.render);
 AppDispatcher.register('add-card', DeckView.addCard.bind(DeckView));
