@@ -1,12 +1,9 @@
 var CardView = {
-  render : function (cardData) {
-    var newCard = document.createElement('Card');
-    document.getElementsByTagName('Results')[0].appendChild(newCard);
+  render : (function (cardData) {
     AppTemplateCache.getTemplate('/components/card/card.html')
-      .catch(function () {
-        console.error('failed to get template from server');
-      })
       .then(function (cardTemplate) {
+        var newCard = document.createElement('Card');
+        document.getElementsByTagName('Results')[0].appendChild(newCard);
         newCard.innerHTML = Mustache.render(cardTemplate,{
           cardImage : cardData.img,
           cardName : cardData.name
@@ -20,27 +17,25 @@ var CardView = {
             AppDispatcher.dispatch('view-card', cardData);
           });
       });
-  },
-  enlarge : function (cardData) {
-    var overlay = document.createElement('Overlay');
-    document.getElementById('main-container').appendChild(overlay);
+  }).bind(CardView),
+  enlarge : (function (cardData) {
     AppTemplateCache.getTemplate('/components/card/enlarged-card.html')
-    .catch(function () {
-      console.error('failed to get template from server');
-    }).then(function (enlargedCardTemplate) {
-      overlay.innerHTML = Mustache.render(enlargedCardTemplate, {
-        CardImage : cardData.img,
-        CardName : cardData.name,
-        CardSet : cardData.cardSet,
-        CardFlavor : cardData.flavor,
-        CardArtist : cardData.artist
+      .then(function (enlargedCardTemplate) {
+        var overlay = document.createElement('Overlay');
+        document.getElementById('main-container').appendChild(overlay);
+        overlay.innerHTML = Mustache.render(enlargedCardTemplate, {
+          cardImage : cardData.img,
+          cardName : cardData.name,
+          cardSet : cardData.cardSet,
+          cardFlavor : cardData.flavor,
+          cardArtist : cardData.artist
+        });
+        overlay.addEventListener('click', function () {
+          document.getElementById('main-container').removeChild(overlay);
+        });
       });
-      overlay.addEventListener('click', function () {
-        document.getElementById('main-container').removeChild(overlay);
-      });
-    });
-  }
+  }).bind(CardView)
 };
 
-AppDispatcher.register('render-card', CardView.render.bind(CardView));
-AppDispatcher.register('view-card', CardView.enlarge.bind(CardView));
+AppDispatcher.register('render-card', CardView.render);
+AppDispatcher.register('view-card', CardView.enlarge);
