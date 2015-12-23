@@ -1,27 +1,25 @@
 var CardView = {
   render : function (cardData) {
     var newCard = document.createElement('Card');
-    Object.keys(cardData).forEach(function(currentValue) {
-      newCard.setAttribute(currentValue, cardData[currentValue]);
-    });
     document.getElementsByTagName('Results')[0].appendChild(newCard);
     AppTemplateCache.getTemplate('/components/card/card.html')
-    .catch(function () {
-      console.error('failed to get template from server');
-    }).then(function (cardTemplate) {
-      newCard.innerHTML = Mustache.render(cardTemplate,{
-        CardImage : cardData.img,
-        CardName : cardData.name
+      .catch(function () {
+        console.error('failed to get template from server');
+      })
+      .then(function (cardTemplate) {
+        newCard.innerHTML = Mustache.render(cardTemplate,{
+          cardImage : cardData.img,
+          cardName : cardData.name
+        });
+        newCard.getElementsByClassName('add')[0]
+          .addEventListener('click', function () {
+            AppDispatcher.dispatch('add-card', cardData);
+          });
+        newCard.getElementsByClassName('view')[0]
+          .addEventListener('click', function () {
+            AppDispatcher.dispatch('view-card', cardData);
+          });
       });
-      addButton = newCard.getElementsByTagName('button')[0];
-      addButton.addEventListener('click', function () {
-        AppDispatcher.dispatch('add-card', cardData);
-      });
-      viewButton = newCard.getElementsByTagName('button')[1];
-      viewButton.addEventListener('click', function () {
-        AppDispatcher.dispatch('view-card', cardData);
-      });
-    });
   },
   enlarge : function (cardData) {
     var overlay = document.createElement('Overlay');
