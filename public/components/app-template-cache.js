@@ -16,6 +16,9 @@ var AppTemplateCache = {
         xhr.open('GET', HTMLpath);
         xhr.send();
       }
-    });
+    })
+      .catch(function () {
+        console.error('failed to get template from server');
+      });
   }
 };

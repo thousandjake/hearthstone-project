@@ -2,9 +2,7 @@ var DeckView = {
   deckArray : [],
   render : function () {
     AppTemplateCache.getTemplate('/components/deck/deck.html')
-    .catch(function () {
-      console.error('failed to get template from server');
-    }).then(function (deckTemplate) {
+    .then(function (deckTemplate) {
       [].slice.call(document.getElementsByTagName('Deck'))
       //cast HTML collection returned by response to an array
         .forEach(function (currentSearchElement) {

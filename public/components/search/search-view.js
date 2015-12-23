@@ -14,9 +14,7 @@ var SearchView = {
   render : function () {
     that = this;
     AppTemplateCache.getTemplate('/components/search/search.html')
-    .catch(function () {
-      console.error('failed to get template from server');
-    }).then(function (searchTemplate) {
+    .then(function (searchTemplate) {
       [].slice.call(document.getElementsByTagName('Search'))
       //cast HTML collection returned by response to an array
         .forEach(function (currentSearchElement) {
