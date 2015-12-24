@@ -9,14 +9,14 @@ var DeckView = {
   },
   addCard : function (cardObj) {
     var deckType = document.getElementsByClassName('hero-type')[0].value;
-    var matchCount = DeckView.deckArray.reduce(function(count, currentValue){
+    var matchCount = DeckView.deckArray.reduce(function (count, currentValue) {
       return currentValue.cardId === cardObj.cardId ? count+1 : count;
     },0);
     if(cardObj.rarity.toLowerCase() === 'legendary' && matchCount >= 1) {
       alert('Only once instance of a legendary per deck');
     } else if(matchCount >= 2) {
       alert('Only two instances of non-legendary cards per deck');
-    } else if(DeckView.deckArray.length >= 30){
+    } else if(DeckView.deckArray.length >= 30) {
       alert('Decks can only contain 30 cards!');
     } else if(cardObj.hasOwnProperty('playerClass') &&
         deckType !== cardObj.playerClass.toLowerCase()) {
@@ -29,9 +29,9 @@ var DeckView = {
   renderDeck : function () {
     var deckUL = document.getElementsByClassName('deck-list')[0];
     deckUL.innerHTML = '';
-    if(DeckView.deckArray.length > 0){
+    if(DeckView.deckArray.length > 0) {
       DeckView._sortArray();
-      DeckView.deckArray.forEach(function(currentValue,index,array){
+      DeckView.deckArray.forEach(function (currentValue,index,array) {
         var deckItem = document.createElement('li');
         deckItem.innerHTML = currentValue.cost + ' ' + currentValue.name;
 
@@ -46,25 +46,19 @@ var DeckView = {
 
         deckUL.appendChild(deckItem);
       });
-    };
+    }
   },
   _sortArray : function () {
-    DeckView.deckArray.sort(function(a, b){
+    DeckView.deckArray.sort(function (a, b) {
       var nameA = a.name.toLowerCase();
       var nameB = b.name.toLowerCase();
-      if(a.cost < b.cost) {
+      if(a.cost < b.cost || nameA < nameB) {
         return -1;
-      } else if(a.cost > b.cost) {
-        return 1;
-      } else if(nameA > nameB){
-        return 1;
-      } else if(nameA < nameB){
-        return -1;
-      } else if(nameA === nameB){
+      } else if(a.cost > b.cost || nameA > nameB || nameA === nameB) {
         return 1;
       } else {
         console.error('Sort Failed????');
-      };
+      }
     });
   },
   removeCard : function (index) {
