@@ -6,7 +6,7 @@ var SearchView = {
       var later = function () {
         timeout = null;
         func.apply(that, args);
-      }
+      };
       clearTimeout(timeout);
       timeout = setTimeout(later, wait);
     }
@@ -15,15 +15,12 @@ var SearchView = {
     that = this;
     AppTemplateCache.getTemplate('/components/search/search.html')
     .then(function (searchTemplate) {
-      [].slice.call(document.getElementsByTagName('Search'))
-      //cast HTML collection returned by response to an array
-        .forEach(function (currentSearchElement) {
-          currentSearchElement.innerHTML = Mustache.render(searchTemplate,{});
-        });
-        document.getElementsByClassName('search-term')[0].addEventListener(
-          'keyup',
-          that.debounce(that.change.bind(), 400)
-        );
+      document.getElementsByTagName('Search')[0]
+        .innerHTML = Mustache.render(searchTemplate,{});
+      document.getElementsByClassName('search-term')[0].addEventListener(
+        'keyup',
+        that.debounce(that.change.bind(), 400)
+      );
     });
   },
   change : function () {

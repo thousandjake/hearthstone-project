@@ -62,7 +62,7 @@ var DeckView = {
     });
   },
   removeCard : function (index) {
-    DeckView.deckArray.splice(index,1);
+    DeckView.deckArray.splice(index, 1);
     DeckView.renderDeck();
   }
 };
