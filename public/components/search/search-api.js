@@ -25,8 +25,15 @@ var SearchAPI = {
           var cardDataArray = JSON.parse(arguments[0].currentTarget.response);
           if (Array.isArray(cardDataArray)) {
             AppDispatcher.dispatch('have-data', {dataArray : cardDataArray});
+            AppDispatcher.dispatch('update-status',
+              {statusType : 'success',
+              statusText: 'Card search successful!'}
+            );
           } else {
-            alert('No results found! Please try again!');
+            AppDispatcher.dispatch('update-status',
+              {statusType : 'error',
+              statusText: 'No results found! Please try again!'}
+            );
           }
         } else {
           console.error('API Response status !== 200');

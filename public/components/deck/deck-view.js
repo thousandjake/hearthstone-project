@@ -13,15 +13,31 @@ var DeckView = {
       return currentValue.cardId === cardObj.cardId ? count+1 : count;
     },0);
     if(cardObj.rarity.toLowerCase() === 'legendary' && matchCount >= 1) {
-      alert('Only once instance of a legendary per deck');
+      AppDispatcher.dispatch('update-status',
+        {statusType : 'error',
+        statusText: 'Only once instance of a legendary per deck!'}
+      );
     } else if(matchCount >= 2) {
-      alert('Only two instances of non-legendary cards per deck');
+      AppDispatcher.dispatch('update-status',
+        {statusType : 'error',
+        statusText: 'Only two instances of non-legendary cards per deck!'}
+      );
     } else if(DeckView.deckArray.length >= 30) {
-      alert('Decks can only contain 30 cards!');
+      AppDispatcher.dispatch('update-status',
+        {statusType : 'error',
+        statusText: 'Decks can only contain 30 cards!'}
+      );
     } else if(cardObj.hasOwnProperty('playerClass') &&
         deckType !== cardObj.playerClass.toLowerCase()) {
-      alert('Card not for your hero bro');
+      AppDispatcher.dispatch('update-status',
+        {statusType : 'error',
+        statusText: 'Card not for your hero bro!'}
+      );
     } else {
+      AppDispatcher.dispatch('update-status',
+        {statusType : 'success',
+        statusText: 'Card successfully added to deck!'}
+      );
       DeckView.deckArray.push(cardObj);
       DeckView.renderDeck();
     }
