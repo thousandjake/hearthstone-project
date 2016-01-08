@@ -12,14 +12,14 @@ var SearchView = {
     }
   },
   render : function () {
-    that = this;
+    var that = this;
     AppTemplateCache.getTemplate('/components/search/search.html')
     .then(function (searchTemplate) {
       document.getElementsByTagName('Search')[0]
         .innerHTML = Mustache.render(searchTemplate,{});
       document.getElementsByClassName('search-term')[0].addEventListener(
         'keyup',
-        that.debounce(that.change.bind(), 400)
+        that.debounce(that.change, 400)
       );
     });
   },
