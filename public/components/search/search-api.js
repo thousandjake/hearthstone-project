@@ -19,24 +19,38 @@ var SearchAPI = {
           xhr.send();
         }
       }).catch(function () {
-        console.error('AJAX call to API failed');
+        AppDispatcher.dispatch('update-status',
+          {
+          statusType : 'error',
+          statusText: 'AJAX call failed!'
+          }
+        );
       }).then(function (xhrResponse) {
         if(xhrResponse.currentTarget.status === 200) {
           var cardDataArray = JSON.parse(arguments[0].currentTarget.response);
           if (Array.isArray(cardDataArray)) {
             AppDispatcher.dispatch('have-data', {dataArray : cardDataArray});
             AppDispatcher.dispatch('update-status',
-              {statusType : 'success',
-              statusText: 'Card search successful!'}
+              {
+              statusType : 'success',
+              statusText: 'Card search successful!'
+              }
             );
           } else {
             AppDispatcher.dispatch('update-status',
-              {statusType : 'error',
-              statusText: 'No results found! Please try again!'}
+              {
+              statusType : 'error',
+              statusText: 'No results found! Please try again!'
+              }
             );
           }
         } else {
-          console.error('API Response status !== 200');
+          AppDispatcher.dispatch('update-status',
+            {
+            statusType : 'error',
+            statusText: 'Response status != 200'
+            }
+          );
         }
       });
   }
