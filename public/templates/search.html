@@ -1,10 +1,10 @@
 <label>
   <span>Enter Search Term:</span>
-  <input class="search-term" type="text">
+  <input ng-model="searchTerm" ng-change="doSearch()" class="search-term" type="text">
 </label>
 <label>
   <span>Search By:</span>
-  <select class="search-type">
+  <select ng-model="searchType"  ng-change="doSearch()" class="search-type">
     <option value="search" selected>Card Name</option>
     <option value="types">Card Type</option>
     <option value="qualities">Card Quality</option>

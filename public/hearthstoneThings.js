@@ -6,10 +6,7 @@ angular.module('hearthstone.things', [])
       scope: { },
       controller: [ 'SearchAPI', 'Debouncer', '$scope',
         function (SearchAPI, Debouncer, $scope) {
-          $scope.searchType = document.getElementsByClassName('search-type')[0].value;
-          $scope.searchTerm = document.getElementsByClassName('search-term')[0].value;
-
-          document.getElementsByClassName('search-term')[0].addEventListener( 'keyup', SearchAPI.getCardData($scope.searchType, $scope.searchTerm));
+          $scope.doSearch = Debouncer.debounce(SearchAPI.getCardData($scope.searchType, $scope.searchTerm),400);
       }]
     }
   }])
@@ -51,9 +48,9 @@ angular.module('hearthstone.things', [])
         $http({
         method: 'GET',
         url: '/api/search?searchType='
-          +encodeURIComponent(args.searchType)
+          +encodeURIComponent(searchType)
           +'&searchTerm='
-          +encodeURIComponent(args.searchTerm)
+          +encodeURIComponent(searchTerm)
       }).then(function (response) {
           if(response.currentTarget.status === 200) {
             cardsArray = JSON.parse(arguements[0].currentTarget.response);
