@@ -47,7 +47,7 @@ angular.module('hearthstone.things', [])
     var cardsArray = [];
 
     this.getCardData = function (searchType, searchTerm) {
-      if(searchTerm !== '') {
+      if(searchTerm && searchType) {
         $http({
         method: 'GET',
         url: '/api/search?searchType='
