@@ -6,7 +6,10 @@ angular.module('hearthstone.things', [])
       scope: { },
       controller: [ 'SearchAPI', 'Debouncer', '$scope',
         function (SearchAPI, Debouncer, $scope) {
-          $scope.doSearch = Debouncer.debounce(SearchAPI.getCardData.bind($scope.searchType, $scope.searchTerm),400);
+          $scope.doSearch = Debouncer.debounce(
+            function() {
+              SearchAPI.getCardData($scope.searchType, $scope.searchTerm);
+            },400);
       }]
     }
   }])
