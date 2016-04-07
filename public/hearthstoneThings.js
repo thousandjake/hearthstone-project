@@ -55,8 +55,8 @@ angular.module('hearthstone.things', [])
           +'&searchTerm='
           +encodeURIComponent(searchTerm)
       }).then(function (response) {
-          if(response.currentTarget.status === 200) {
-            cardsArray = JSON.parse(arguements[0].currentTarget.response);
+          if(response.status === 200) {
+            cardsArray = response.data;
           };
         }, function (response) {
             console.error('ERROR with GET request :'+response);
