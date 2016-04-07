@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles/style.css">
 
   </head>
-  <body>
+  <body ng-app="hearthstone">
     <div id="main-container">
       <div id="search-container">
         <Search></Search>
@@ -18,20 +18,8 @@
       </div>
     </div>
 
-    <script src="/mustache.js/mustache.js"></script>
-    <script src="/components/app-dispatcher.js"></script>
-    <script src="/components/app-template-cache.js"></script>
-    <script src="/components/card/card-view.js"></script>
-    <script src="/components/deck/deck-view.js"></script>
-    <script src="/components/search/search-api.js"></script>
-    <script src="/components/search/search-view.js"></script>
-    <script src="/components/search/search-results-view.js"></script>
-    <script src="/components/statusbar/statusbar-view.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded',function () {
-        //dispatch the dom-load event
-        AppDispatcher.dispatch('dom-load', {});
-      });
-    </script>
+    <script src="angular/angular.js"></script>
+    <script src="hearthstoneThings.js"></script>
+    <script src="hearthstoneApp.js"></script>
   </body>
 </html>
