@@ -26,7 +26,7 @@ angular.module('hearthstone.things', [])
   .directive('results', [ function () {
     return {
       restrict: 'E',
-      template: '<card ng-repeat="result in data.searchResultCards" result="result"></card>',
+      template: '<card ng-repeat="result in data.searchResultCards" card-obj="result"></card>',
       scope: { },
       controller: [ 'AppData', '$scope', function (AppData, $scope) {
         $scope.data = AppData.getData();
@@ -38,12 +38,13 @@ angular.module('hearthstone.things', [])
       restrict: 'E',
       templateUrl: '/templates/card.html',
       scope: {
-        result: '='
+        cardObj: '='
       },
       controller: [ 'AppData', '$scope', function (AppData, $scope) {
-        $scope.addCard = AppData.addCard();
+        $scope.passToDeck = function () {
+          AppData.addCard($scope.cardObj);
+        };
       }]
-
     }
   }])
   .directive('deck', [ function () {
