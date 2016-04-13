@@ -47,6 +47,20 @@ angular.module('hearthstone.things', [])
       }]
     }
   }])
+  .directive('largeCardOpener', [ function () {
+    return {
+      restrict: 'A',
+      scope : { },
+      controller: [ function () {
+
+      }],
+      link: function (scope, elements, attrs) {
+        elements.on('click', function () {
+          console.log('it works');
+        });
+      }
+    }
+  }])
   .directive('deck', [ function () {
     return {
       restrict: 'E',
