@@ -47,19 +47,25 @@ angular.module('hearthstone.things', [])
       }]
     }
   }])
-  .directive('largeCardOpener', [ '$compile', function ($compile) {
+  .directive('largeCardOpener', [ 'LargeCardService','$compile', function (LargeCardService, $compile) {
     return {
       restrict: 'A',
       scope : {
         card: '=largeCardOpener'
       },
-      controller: [ function () {
-
-      }],
       link: function ($scope, elements, attrs) {
+        var isOpen = false;
+        var el;
+        $scope.close = function () {
+          el.remove();
+          LargeCardService.closeCard();
+        };
         elements.on('click', function () {
-          var  el = $compile( '<large-card cardObj="card"></large-card>' )( $scope );
-          angular.element(document.body).append( el );
+          if(!LargeCardService.getStatus()){
+           el = $compile( '<large-card card-obj="card" on-close="close()"></large-card>' )( $scope );
+           angular.element(document.body).append( el );
+           LargeCardService.openCard();
+         }
         });
       }
     }
@@ -67,13 +73,23 @@ angular.module('hearthstone.things', [])
   .directive('largeCard', [ function () {
     return {
       restrict: 'E',
-      template:'<div>Hello</div>',
+      template:'<div>Hello</div><button ng-click="onClose()">Close</button>',
       scope: {
-        cardObj: '='
-      },
-      controller: [ function () {
-
-      }]
+        cardObj: '=',
+        onClose: '&'
+      }
+    }
+  }])
+  .service('LargeCardService', [ function () {
+    var isOpen = false;
+    this.getStatus = function () {
+      return isOpen;
+    }
+    this.closeCard = function () {
+      isOpen = false;
+    }
+    this.openCard = function () {
+      isOpen = true;
     }
   }])
   .directive('deck', [ function () {
