@@ -36,13 +36,14 @@ angular.module('hearthstone.things', [])
   .directive('card', [ function () {
     return {
       restrict: 'E',
-      templateUrl:  '/templates/card.html',
+      templateUrl: '/templates/card.html',
       scope: {
         result: '='
       },
       controller: [ 'AppData', '$scope', function (AppData, $scope) {
-        $scope.data = AppData.getData();
+        $scope.addCard = AppData.addCard();
       }]
+
     }
   }])
   .directive('deck', [ function () {
@@ -50,8 +51,7 @@ angular.module('hearthstone.things', [])
       restrict: 'E',
       templateUrl: '/templates/deck.html',
       scope: { },
-      controller: [ function () {
-
+      controller: [ 'AppData', '$scope', function (AppData, $scope) {
       }]
     }
   }])
@@ -89,6 +89,27 @@ angular.module('hearthstone.things', [])
     };
     this.clearResults = function () {
       data.searchResultCards = [];
+    };
+    this.sortDeck = function () {
+      data.decklistCards.sort(function (a, b) {
+        var nameA = a.name.toLowerCase();
+        var nameB = b.name.toLowerCase();
+        if(a.cost < b.cost || nameA < nameB) {
+          return -1;
+        } else if(a.cost > b.cost || nameA > nameB || nameA === nameB) {
+          return 1;
+        } else {
+          console.error('Sort Failed????');
+        }
+      });
+    };
+    this.addCard = function (cardObj) {
+      data.decklistCards.push(cardObj);
+      this.sortDeck();
+    };
+    this.removeCard = function (index) {
+      data.decklistCards.splice(index,1);
+      this.sortDeck();
     };
   }])
   .service('Debouncer', [ function () {

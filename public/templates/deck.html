@@ -5,7 +5,7 @@
 
 <label>
   <span>Choose A Class:</span>
-  <select class="hero-type">
+  <select ng-model="searchType" class="hero-type">
     <option value="druid">Druid</option>
     <option value="hunter">Hunter</option>
     <option value="mage">Mage</option>
@@ -19,4 +19,5 @@
 </label>
 
 <ul class="deck-list">
+  <li ng-repeat="item in data.decklistCards" item="item">{{item.cost}}" - "{{item.name}}</li>
 </ul>
