@@ -47,20 +47,33 @@ angular.module('hearthstone.things', [])
       }]
     }
   }])
-  .directive('largeCardOpener', [ function () {
+  .directive('largeCardOpener', [ '$compile', function ($compile) {
     return {
       restrict: 'A',
       scope : {
-        largeCardOpener: '='
+        card: '=largeCardOpener'
       },
       controller: [ function () {
 
       }],
       link: function ($scope, elements, attrs) {
         elements.on('click', function () {
-          console.log($scope.largeCardOpener);
+          var  el = $compile( '<large-card cardObj="card"></large-card>' )( $scope );
+          angular.element(document.body).append( el );
         });
       }
+    }
+  }])
+  .directive('largeCard', [ function () {
+    return {
+      restrict: 'E',
+      template:'<div>Hello</div>',
+      scope: {
+        cardObj: '='
+      },
+      controller: [ function () {
+
+      }]
     }
   }])
   .directive('deck', [ function () {
