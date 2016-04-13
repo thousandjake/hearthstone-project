@@ -53,6 +53,7 @@ angular.module('hearthstone.things', [])
       templateUrl: '/templates/deck.html',
       scope: { },
       controller: [ 'AppData', '$scope', function (AppData, $scope) {
+        $scope.data = AppData.getData();
       }]
     }
   }])

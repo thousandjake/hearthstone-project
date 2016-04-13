@@ -19,5 +19,5 @@
 </label>
 
 <ul class="deck-list">
-  <li ng-repeat="item in data.decklistCards" item="item">{{item.cost}}" - "{{item.name}}</li>
+  <li ng-repeat="item in data.decklistCards track by $index" item="item">{{item.cost}} - {{item.name}}</li>
 </ul>
