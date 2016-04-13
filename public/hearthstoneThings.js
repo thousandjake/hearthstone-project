@@ -50,13 +50,15 @@ angular.module('hearthstone.things', [])
   .directive('largeCardOpener', [ function () {
     return {
       restrict: 'A',
-      scope : { },
+      scope : {
+        largeCardOpener: '='
+      },
       controller: [ function () {
 
       }],
-      link: function (scope, elements, attrs) {
+      link: function ($scope, elements, attrs) {
         elements.on('click', function () {
-          console.log('it works');
+          console.log($scope.largeCardOpener);
         });
       }
     }
