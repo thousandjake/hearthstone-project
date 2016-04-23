@@ -42,7 +42,12 @@ angular.module('hearthstone.things', [])
       },
       controller: [ 'AppData', '$scope', function (AppData, $scope) {
         $scope.passToDeck = function () {
-          AppData.addCard($scope.cardObj);
+          $scope.data = AppData.getData();
+          if(AppData.useCheck($scope.data.decklistType, $scope.cardObj)) {
+            AppData.addCard($scope.cardObj);
+          } else {
+
+          }
         };
       }]
     }
@@ -99,6 +104,7 @@ angular.module('hearthstone.things', [])
       scope: { },
       controller: [ 'AppData', '$scope', function (AppData, $scope) {
         $scope.data = AppData.getData();
+        $scope.updateDeckType = function () {AppData.setDeck($scope.deckType)};
       }]
     }
   }])
@@ -126,6 +132,7 @@ angular.module('hearthstone.things', [])
   .service('AppData', [ function () {
     var data = {
       searchResultCards : [],
+      decklistType : '',
       decklistCards : []
     };
     this.getData = function () {
@@ -137,18 +144,52 @@ angular.module('hearthstone.things', [])
     this.clearResults = function () {
       data.searchResultCards = [];
     };
+    this.setDeck = function (deckType) {
+      data.decklistType = deckType;
+      for(var i=0;i<data.decklistCards.length;i++) {
+        if(data.decklistCards[i].hasOwnProperty('playerClass') &&
+        deckType !== data.decklistCards[i].playerClass.toLowerCase()) {
+          data.decklistCards.splice(i,1);
+          i--;
+        }
+      };
+      this.sortDeck();
+    }
     this.sortDeck = function () {
       data.decklistCards.sort(function (a, b) {
         var nameA = a.name.toLowerCase();
         var nameB = b.name.toLowerCase();
-        if(a.cost < b.cost || nameA < nameB) {
+        if(a.cost < b.cost) {
           return -1;
-        } else if(a.cost > b.cost || nameA > nameB || nameA === nameB) {
+        } else if(a.cost > b.cost) {
           return 1;
+        } else if(a.cost === b.cost){
+          if(nameA < nameB) {
+            return -1;
+          } else {
+            return 1;
+          }
         } else {
-          console.error('Sort Failed????');
-        }
+            console.error('Sort Failed????');
+          }
       });
+    };
+    this.useCheck = function (deckType, cardObj) {
+      var matchCount = data.decklistCards.reduce(function (count, currentValue) {
+        return currentValue.cardId === cardObj.cardId ? count+1 : count;
+      },0);
+      if(cardObj.rarity.toLowerCase() === 'legendary' && matchCount >= 1) {
+        return false;
+      } else if(matchCount >= 2) {
+        return false;
+      } else if(data.decklistCards.length >= 30) {
+        return false;
+      } else if(cardObj.hasOwnProperty('playerClass') &&
+          deckType !== cardObj.playerClass.toLowerCase()) {
+        return false;
+      } else {
+        return true;
+      }
     };
     this.addCard = function (cardObj) {
       data.decklistCards.push(cardObj);

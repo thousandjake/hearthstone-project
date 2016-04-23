@@ -1,11 +1,11 @@
 <label>
   <span>Deck Name:</span>
-  <input class="deck-name" type="text">
+  <input ng-model="deckName" class="deck-name" type="text">
 </label></br>
 
 <label>
   <span>Choose A Class:</span>
-  <select ng-model="searchType" class="hero-type">
+  <select ng-model="deckType" ng-change="updateDeckType()" class="hero-type">
     <option value="druid">Druid</option>
     <option value="hunter">Hunter</option>
     <option value="mage">Mage</option>

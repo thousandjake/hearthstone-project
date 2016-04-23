@@ -110,12 +110,15 @@ Results {
 }
 
 Deck li{
-  width: 100%;
-  max-width:100%;
+  display: inline-block;
+  width: 750px;
+  max-width: 750px;
   font-size: 16px;
   text-align: left;
   list-style: none;
   float: left;
+  background-color: ghostwhite;
+  padding: 1px 1px;
 }
 
 Card {
