@@ -158,9 +158,11 @@ Card img {
   text-align: center;
 }
 
-Overlay {
+modal {
   z-index: 1000;
   display: block;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
   background-color: rgba(0,0,0,.6);
@@ -169,7 +171,7 @@ Overlay {
   float: left;
 }
 
-EnlargedCard {
+LargeCard {
   z-index: 1001;
   display: inline-block;
   width: 80vw;
@@ -178,7 +180,7 @@ EnlargedCard {
   padding: 20px 20px;
 }
 
-EnlargedCard img {
+LargeCard img {
   display: inline-block;
   float: left;
   width: 50%;
@@ -188,7 +190,7 @@ EnlargedCard img {
   padding: 10px 10px;
 }
 
-EnlargedCard div {
+LargeCard div {
   display: inline-block;
   background-color: ghostwhite;
   float:left;

@@ -67,7 +67,7 @@ angular.module('hearthstone.things', [])
         };
         elements.on('click', function () {
           if(!LargeCardService.getStatus()){
-           el = $compile( '<large-card card-obj="card" on-close="close()"></large-card>' )( $scope );
+           el = $compile( '<modal card-obj="card" on-close="close()" ng-click="close()"></modal>' )( $scope );
            angular.element(document.body).append( el );
            LargeCardService.openCard();
          }
@@ -75,10 +75,10 @@ angular.module('hearthstone.things', [])
       }
     }
   }])
-  .directive('largeCard', [ function () {
+  .directive('modal', [ function () {
     return {
       restrict: 'E',
-      template:'<div>Hello</div><button ng-click="onClose()">Close</button>',
+      templateUrl: 'templates/largeCard.html',
       scope: {
         cardObj: '=',
         onClose: '&'
@@ -146,13 +146,14 @@ angular.module('hearthstone.things', [])
     };
     this.setDeck = function (deckType) {
       data.decklistType = deckType;
-      for(var i=0;i<data.decklistCards.length;i++) {
-        if(data.decklistCards[i].hasOwnProperty('playerClass') &&
-        deckType !== data.decklistCards[i].playerClass.toLowerCase()) {
-          data.decklistCards.splice(i,1);
-          i--;
-        }
-      };
+      var newDeckList = data.decklistCards.filter( function (currentCard) {
+        if(currentCard.hasOwnProperty('playerClass') &&
+          deckType !== currentCard.playerClass.toLowerCase()) {
+          return false;
+        };
+        return true;
+      });
+      data.decklistCards = newDeckList;
       this.sortDeck();
     }
     this.sortDeck = function () {
