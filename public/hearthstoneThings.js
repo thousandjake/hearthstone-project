@@ -18,8 +18,8 @@ angular.module('hearthstone.things', [])
       restrict: 'E',
       templateUrl: '/templates/statusbar.html',
       scope: { },
-      controller: [ function () {
-
+      controller: [ 'AppData', '$scope', function (AppData, $scope) {
+        $scope.data = AppData.getData();
       }]
     }
   }])
@@ -121,10 +121,15 @@ angular.module('hearthstone.things', [])
           +encodeURIComponent(searchTerm)
       }).then(function (response) {
           if(response.status === 200) {
-            AppData.createResults(response.data);
+            if(response.data.error) {
+              AppData.newStatus('error', 'No Matches Found For Search');
+            } else {
+              AppData.createResults(response.data);
+            }
           };
         }, function (response) {
-            console.error('ERROR with GET request :'+response);
+          AppData.setStatus('error', 'GET Request Error, Try Again Later');
+          console.error('ERROR with GET request :'+response);
         });
     }
     };
@@ -132,6 +137,8 @@ angular.module('hearthstone.things', [])
   .service('AppData', [ function () {
     var data = {
       searchResultCards : [],
+      statusType: '',
+      statusText: '',
       decklistType : '',
       decklistCards : []
     };
@@ -139,10 +146,17 @@ angular.module('hearthstone.things', [])
       return data;
     };
     this.createResults = function (cardsArray) {
-      data.searchResultCards = cardsArray;
+      if(cardsArray) {
+        data.searchResultCards = cardsArray;
+        this.newStatus('success', 'Matches Found For Search!');
+      }
     };
     this.clearResults = function () {
       data.searchResultCards = [];
+    };
+    this.newStatus = function (statusType, statusText) {
+      data.statusType = statusType;
+      data.statusText = statusText;
     };
     this.setDeck = function (deckType) {
       data.decklistType = deckType;
@@ -180,15 +194,20 @@ angular.module('hearthstone.things', [])
         return currentValue.cardId === cardObj.cardId ? count+1 : count;
       },0);
       if(cardObj.rarity.toLowerCase() === 'legendary' && matchCount >= 1) {
+        this.newStatus('error', 'Cannot Have More Than One Copy of Legendary');
         return false;
       } else if(matchCount >= 2) {
+        this.newStatus('error', 'Cannot Have More Than Two Copies of a Card');
         return false;
       } else if(data.decklistCards.length >= 30) {
+        this.newStatus('error', 'Decks Cannot Contain More Than 30 Cards');
         return false;
       } else if(cardObj.hasOwnProperty('playerClass') &&
           deckType !== cardObj.playerClass.toLowerCase()) {
+        this.newStatus('error', 'Card Does Not Match Deck Class');
         return false;
       } else {
+        this.newStatus('success', 'Card Added to the Deck');
         return true;
       }
     };
