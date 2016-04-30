@@ -105,6 +105,7 @@ angular.module('hearthstone.things', [])
       controller: [ 'AppData', '$scope', function (AppData, $scope) {
         $scope.data = AppData.getData();
         $scope.updateDeckType = function () {AppData.setDeck($scope.deckType)};
+        $scope.removeFromDeck = function (index) {AppData.removeCard(index)};
       }]
     }
   }])
